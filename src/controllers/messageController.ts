@@ -15,8 +15,6 @@ export const messages = async (req: express.Request, res: express.Response) => {
                 data: newMessage
             })
 
-
-
     } catch(error: any) {
         console.log(error);
         return res.status(500).json({
@@ -29,7 +27,6 @@ export const messages = async (req: express.Request, res: express.Response) => {
 
 //view all messages
 export const viewMessages = async (req: express.Request, res: express.Response) => {
-
     try {
         const allMessages = await Message.find()
         
@@ -38,12 +35,10 @@ export const viewMessages = async (req: express.Request, res: express.Response) 
                 message: "messages were not found"
             })
         }
-
         return res.status(200).json({
             message: "All Messages successfully found",
             data: allMessages
         })
-
     }
     catch(error: any){
         console.log(error)
@@ -55,12 +50,10 @@ export const viewMessages = async (req: express.Request, res: express.Response) 
 }
 
 
-
 //delete message
 export const deleteMessage = async (req: express.Request, res: express.Response) => {
     try {
         const messageId = req.params.id; 
-
         // Check if the message exists
         const existingMessage = await Message.findById(messageId);
         if (!existingMessage) {
@@ -68,7 +61,6 @@ export const deleteMessage = async (req: express.Request, res: express.Response)
                 message: "Message not found"
             });
         }
-
         // Delete the message
         const deletedMessage = await Message.findByIdAndDelete(messageId);
 
@@ -76,9 +68,7 @@ export const deleteMessage = async (req: express.Request, res: express.Response)
             message: "Message deleted successfully",
             data: deletedMessage
         });
-
     } 
-    
     catch (error: any) {
         console.error(error);
         return res.status(500).json({
