@@ -14,10 +14,10 @@ const UserSchema = new mongoose.Schema({
         type: String, 
         required: true
     },
-    isOwner:{
-        type: Boolean,
-        required: true
-    }
+    // isOwner:{
+    //     type: Boolean,
+    //     required: true
+    // }
 });
 const UserModel = mongoose.model('user', UserSchema);
 
