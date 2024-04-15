@@ -5,6 +5,9 @@ import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import dotenv from 'dotenv'
+
+dotenv.config();
 
 import allRoutes from "./routes/allRoutes"
 
@@ -20,18 +23,14 @@ app.use(bodyParser.json());
 
 const server = http.createServer(app);
 
-const PORT:number = parseInt(process.env.PORT!) || 7070;
+const port = process.env.PORT;
 
-server.listen(PORT, () => {
+server.listen(port, () => {
     console.log('server running on http://localhost:7070/');
 });
 
-
-const MONGO_URL = 'mongodb+srv://aimegetz:4ANkqZh1vkvm1p9j@cluster0.7d6ceay.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
-
-
 mongoose.Promise = Promise;
-mongoose.connect(MONGO_URL);
+mongoose.connect(process.env.MONGO_URL as string);
 mongoose.connection.on('error', (error: Error) => console.log(error));
 
 
