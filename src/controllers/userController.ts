@@ -4,43 +4,32 @@ import User from '../modules/user'
 import jwt from "jsonwebtoken"
 
 
-
 //Login
 export const login = async (req: express.Request, res: express.Response) => {
     try{
         const { email, password } = req.body;
 
         const user = await User.findOne({email: email})
-
         if (!user) {
-            return res.status(400).json({
+            return res.status(404).json({
                 status: 'fail',
                 message: 'no user'
             });
         }
 
         const password_match = await bcrypt.compare(password, user.password)
-
-
         if(!password_match){
-            return res.status(400).json({
+            return res.status(404).json({
                 status: 'fail',
                 message: 'Wrong password'
             });
         }
-
-
         // const token = await jwt.sign({isOwner: user.isOwner}, process.env.SECRET_KEY)
-
-
           return res.status(200).json({
             status: 'success',
             data: user
         });
    
-
-
-
     } catch(error: any) {
         console.log(error);
         return res.status(500).json({
@@ -57,32 +46,30 @@ export const signup = async (req: express.Request, res: express.Response) => {
     try {
         const { username, email, password} = req.body;
         if ( !username || !email || !password){
-            return res.status(400).json({
+            return res.status(404).json({
                 status: 'fail',
                 message: 'insert user credentials'
             });
         }
 
-        let isOwner = false
+        // let isOwner = false
 
-            const thereAreUsers = await User.find()
+        //     const thereAreUsers = await User.find()
         
-            if(!thereAreUsers){
-                isOwner = true;
-            }
+        //     if(!thereAreUsers){
+        //         isOwner = true;
+        //     }
 
-        // const existingUser = await User.findOne({email: email});
+        const existingUser = await User.findOne({email: email});
 
-        // //console.log(existingUser)
+        //console.log(existingUser)
 
-        // if (existingUser) {
-        //     return res.status(400).json({
-        //         status: 'fail',
-        //         message: 'user already exists'
-        //     });
-        // }
-
-
+        if (existingUser) {
+            return res.status(400).json({
+                status: 'fail',
+                message: 'user already exists'
+            });
+        }
         // hash to password
         const hashed_password = await bcrypt.hash(password, 10)
     
@@ -90,16 +77,12 @@ export const signup = async (req: express.Request, res: express.Response) => {
             username,
             email,
             password: hashed_password,
-            isOwner
+            // isOwner
         });
-
-
         return res.status(200).json({
             status: 'success',
             data: user
         });
-
-
     } catch(error: any) {
         console.log(error);
         return res.status(500).json({
@@ -120,7 +103,6 @@ export const viewUsers = async (req: express.Request, res: express.Response) => 
             message: "All Users successfully found",
             data: allUsers
         })
-
     }
     catch(error: any){
         console.log(error)
@@ -128,6 +110,35 @@ export const viewUsers = async (req: express.Request, res: express.Response) => 
             message: error.message,
             code: error.code,             
         })
+    }
+}
+
+
+// delete users
+export const deleteUser = async (req: express.Request, res: express.Response) => {
+    try {
+        const userId = req.params.id; 
+        // Check if the user exists
+        const existingUser = await User.findById(userId);
+        if (!existingUser) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+        // Delete the message
+        const deletedUser = await User.findByIdAndDelete(userId);
+
+        return res.status(200).json({
+            message: "User deleted successfully",
+            data: deletedUser
+        });
+    } 
+    catch (error: any) {
+        console.error(error);
+        return res.status(500).json({
+            message: error.message,
+            code: error.code
+        });
     }
 }
 
