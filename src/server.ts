@@ -1,37 +1,23 @@
 import express from 'express';
-import http from 'http';
-import bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
-import compression from 'compression';
+import allRoutes from "./routes/allRoutes"
 import cors from 'cors';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
+import swaggerSetup from '../swaggerConfig';
+import './database/config/database'
 
+const app = express();
+app.use(express.json());
+app.use(cors());
 dotenv.config();
 
-import allRoutes from "./routes/allRoutes"
+app.use("/api", allRoutes);
 
-//Express application
-const app = express();
+swaggerSetup(app);
 
-app.use(cors({
-  credentials: true,
-}));
-
-app.use(compression());
-app.use(bodyParser.json());
-
-const server = http.createServer(app);
-
-const port = process.env.PORT;
-
-server.listen(port, () => {
-    console.log('server running on http://localhost:7070/');
+const PORT = process.env.PORT || 7070;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
 
-mongoose.Promise = Promise;
-mongoose.connect(process.env.MONGO_URL as string);
-mongoose.connection.on('error', (error: Error) => console.log(error));
+export default app;
 
-
-app.use('/api/', allRoutes);
