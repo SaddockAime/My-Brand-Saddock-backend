@@ -1,5 +1,5 @@
 import express from "express";
-import { createSubscriber, viewSubscribers } from "../modules/subscriber/controller/subscriberController";
+import { createSubscriber, viewSubscribers, deleteSubscriber } from "../modules/subscriber/controller/subscriberController";
 
 const router = express.Router();
 
@@ -75,6 +75,38 @@ router.post("/createSubscriber", createSubscriber);
  *         description: Internal Server Error
  */
 router.get("/viewSubscribers", viewSubscribers);
+
+/**
+ * @swagger
+ * /subscribers/deleteSubscriber/{id}:
+ *   delete:
+ *     summary: Delete a subscriber by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: message ID
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Subscriber deleted successfully"
+ *                 data:
+ *                   type: object
+ *       404:
+ *         description: Subscriber not found
+ *       500:
+ *         description: Internal Server Error
+ */
+router.delete("/deleteSubscriber/:id", deleteSubscriber);
 
 export default router;
 

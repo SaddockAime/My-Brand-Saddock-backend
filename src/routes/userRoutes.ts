@@ -1,5 +1,5 @@
 import express from 'express';
-
+import { authentication } from '../middleware/authentication';
 import {login, signup, viewUsers, deleteUser}  from "../modules/user/controller/userController";
 
 const router = express.Router();
@@ -114,6 +114,8 @@ router.post("/login", login);
  * /users/viewusers:
  *   get:
  *     summary: Get a list of all users
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Success
@@ -135,13 +137,15 @@ router.post("/login", login);
  *       500:
  *         description: Internal Server Error
  */
-router.get("/viewusers", viewUsers);
+router.get("/viewusers", authentication, viewUsers);
 
 /**
  * @swagger
  * /users/deleteUser/{id}:
  *   delete:
  *     summary: Delete a user by ID
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -177,6 +181,6 @@ router.get("/viewusers", viewUsers);
  *       500:
  *         description: Internal Server Error
  */
-router.delete("/deleteUser/:id", deleteUser);
+router.delete("/deleteUser/:id", authentication, deleteUser);
 
 export default router;
