@@ -14,8 +14,8 @@ export const createMessage = async (req: express.Request, res: express.Response)
             })
     } catch(error: any) {
         return res.status(500).json({
-            message: error.message,
-            code: error.code,             
+            message: "Internal Server Error",
+            error: error.message             
         })
     }
 }
@@ -26,7 +26,7 @@ export const viewMessages = async (req: express.Request, res: express.Response) 
     try {
         const allMessages = await getAllMessages()
         
-        if(! allMessages){
+        if(! allMessages || allMessages.length === 0){
             return res.status(404).json({
                 message: "messages were not found"
             })
@@ -38,8 +38,8 @@ export const viewMessages = async (req: express.Request, res: express.Response) 
     }
     catch(error: any){
         return res.status(500).json({
-            message: error.message,
-            code: error.code,             
+            message: "Internal Server Error",
+            error: error.message             
         })
     }
 }
@@ -64,8 +64,8 @@ export const deleteMessage = async (req: express.Request, res: express.Response)
     } 
     catch (error: any) {
         return res.status(500).json({
-            message: error.message,
-            code: error.code
+            message: "Internal Server Error",
+            error: error.message
         });
     }
 }

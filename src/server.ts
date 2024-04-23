@@ -7,7 +7,7 @@ import './database/config/database'
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors(" * " as any));
 dotenv.config();
 
 app.use("/api", allRoutes);

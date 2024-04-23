@@ -31,8 +31,8 @@ export const login = async (req: express.Request, res: express.Response) => {
         });
     } catch(error: any) {
         return res.status(500).json({
-            message: error.message,
-            code: error.code,             
+            message: "Internal Server Error",
+            error: error.message             
         })
     }
 }
@@ -69,8 +69,8 @@ export const signup = async (req: express.Request, res: express.Response) => {
         });
     } catch(error: any) {
         return res.status(500).json({
-            message: error.message,
-            code: error.code,             
+            message: "Internal Server Error",
+            error: error.message             
         })
     }
 }
@@ -80,7 +80,7 @@ export const signup = async (req: express.Request, res: express.Response) => {
 export const viewUsers = async (req: express.Request, res: express.Response) => {
     try {
         const allUsers = await getAllUsers()
-        if(! allUsers) {
+        if(! allUsers || allUsers.length === 0) {
             return res.status(404).json({
                 message: "Allusers were not found"
             })
@@ -92,8 +92,8 @@ export const viewUsers = async (req: express.Request, res: express.Response) => 
     }
     catch(error: any){
         return res.status(500).json({
-            message: error.message,
-            code: error.code,             
+            message: "Internal Server Error",
+            error: error.message             
         })
     }
 }
@@ -118,8 +118,8 @@ export const deleteUser = async (req: express.Request, res: express.Response) =>
     } 
     catch (error: any) {
         return res.status(500).json({
-            message: error.message,
-            code: error.code
+            message: "Internal Server Error",
+            error: error.message
         });
     }
 }
