@@ -1,6 +1,5 @@
 import express from "express";
-import Subscriber from "../../../database/models/subscribers";
-import { createSubscribers, getAllSubscribers} from "../repository/subscriberRepo"
+import { createSubscribers, getAllSubscribers, deleteSubscriberById, getSubscriberById} from "../repository/subscriberRepo"
 
 
 //subscribers
@@ -13,7 +12,6 @@ export const createSubscriber = async (req: express.Request, res: express.Respon
             data: newSubscriber
         });
     } catch (error: any) {
-        console.log(error);
         return res.status(500).json({
             message: error.message,
             code: error.code,             
@@ -37,10 +35,34 @@ export const viewSubscribers = async (req: express.Request, res: express.Respons
         })
     }
     catch(error: any){
-        console.log(error)
         return res.status(500).json({
             message: error.message,
             code: error.code,             
         })
+    }
+}
+
+//delete subscriber
+export const deleteSubscriber = async (req: express.Request, res: express.Response) => {
+    try {
+        const subscriberId = req.params.id;
+        const existingSubscriber = await getSubscriberById(subscriberId);
+        if (!existingSubscriber) {
+            return res.status(404).json({
+                message: "Subscriber not found"
+            });
+        }
+        // Delete the subscriber
+        const deletedsub = await deleteSubscriberById(subscriberId);
+        return res.status(200).json({
+            message: "Subscriber deleted successfully",
+            data: deletedsub
+        });
+    } 
+    catch (error: any) {
+        return res.status(500).json({
+            message: error.message,
+            code: error.code
+        });
     }
 }

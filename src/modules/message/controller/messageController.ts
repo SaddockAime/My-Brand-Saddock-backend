@@ -13,7 +13,6 @@ export const createMessage = async (req: express.Request, res: express.Response)
                 data: newMessage
             })
     } catch(error: any) {
-        console.log(error);
         return res.status(500).json({
             message: error.message,
             code: error.code,             
@@ -38,7 +37,6 @@ export const viewMessages = async (req: express.Request, res: express.Response) 
         })
     }
     catch(error: any){
-        console.log(error)
         return res.status(500).json({
             message: error.message,
             code: error.code,             
@@ -65,7 +63,6 @@ export const deleteMessage = async (req: express.Request, res: express.Response)
         });
     } 
     catch (error: any) {
-        console.error(error);
         return res.status(500).json({
             message: error.message,
             code: error.code

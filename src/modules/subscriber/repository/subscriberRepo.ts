@@ -9,4 +9,12 @@ const getAllSubscribers = async () => {
     return await Subscriber.find()
 }
 
-export { createSubscribers, getAllSubscribers}
+const getSubscriberById = async (id: string) => {
+    return await Subscriber.findOne({_id: id});
+}
+
+const deleteSubscriberById = async (id: string) => {
+    return await Subscriber.deleteOne({_id: id});
+}
+
+export { createSubscribers, getAllSubscribers, deleteSubscriberById, getSubscriberById }

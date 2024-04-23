@@ -5,6 +5,8 @@ import chai, { expect } from "chai";
 chai.use(chaiHttp);
 const router = () => chai.request(app);
 
+let messageId: any = '';
+
 describe("MyBrand backend message test cases", () => {
 
   // Test for creating message
@@ -16,10 +18,11 @@ describe("MyBrand backend message test cases", () => {
         email: "aime@gmail.com",
         message: "hello there"
       })
-      .end((error, response) => {
+      .end((error, response: any) => {
         expect(response).to.have.status(200);
         expect(response.body).to.be.an("object");
         expect(response.body).to.have.property("data");
+        messageId = response._body.data._id;
         done(error);
       });
   });
@@ -39,14 +42,22 @@ describe("MyBrand backend message test cases", () => {
 
   // Test for deleting a message
   it("Should be able to delete a message by ID", (done) => {
-    // Replace 'userId' with an actual message ID from your database
-    const userId = "";
     router()
-      .delete(`/api/messages/deleteMessage/${userId}`)
+      .delete(`/api/messages/deleteMessage/${messageId}`)
       .end((error, response) => {
         expect(response).to.have.status(200);
         expect(response.body).to.be.an("object");
         expect(response.body.message).to.be.a("string");
+        done(error);
+      });
+  });
+
+  it("Should be able to give an error", (done) => {
+    router()
+      .delete(`/api/messages/deleteMessage/${messageId}`)
+      .end((error, response) => {
+        expect(response).to.have.status(404);
+        expect(response.body).to.be.an("object");
         done(error);
       });
   });
