@@ -7,9 +7,7 @@
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test | coveralls",
     "test": "mocha --require ts-node/register 'src/modules/**/*.spec.ts' --timeout 300000 --exit",
     "coverage": "nyc mocha --require ts-node/register 'src/modules/**/*.spec.ts' --timeout 300000 --exit",
-    "dev": "nodemon",
-    "build": "npm install && tsc",
-    "start": "npm run build && node ./dist/src/server.js"
+    "start": "nodemon"
 
   },
   "nyc": {
