@@ -1,1 +1,0 @@
-{"version":3,"file":"subscribers.js","sourceRoot":"","sources":["../../../../src/database/models/subscribers.ts"],"names":[],"mappings":";;;;;AAAA,wDAAgC;AAEhC,MAAM,gBAAgB,GAAG,IAAI,kBAAQ,CAAC,MAAM,CAAC;IACzC,KAAK,EAAE,EAAE,IAAI,EAAE,MAAM,EAAE,QAAQ,EAAE,IAAI,EAAC;CACzC,CAAC,CAAC;AAEH,MAAM,WAAW,GAAG,kBAAQ,CAAC,KAAK,CAAC,aAAa,EAAE,gBAAgB,CAAC,CAAC;AAEpE,kBAAe,WAAW,CAAC"}
