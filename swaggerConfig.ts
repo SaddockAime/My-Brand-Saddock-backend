@@ -11,7 +11,7 @@ const options = {
     },
     servers: [
       {
-        url: 'http://localhost:7070/api',
+        url: 'https://my-brand-saddock-backend.onrender.com/api',
       },
     ],
   },
