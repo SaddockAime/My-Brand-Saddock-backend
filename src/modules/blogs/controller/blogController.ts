@@ -24,7 +24,7 @@ const uploadImages = async (fileToUpload:any): Promise<{ public_id: string; secu
 export const createBlogs = asyncHandler(async (req: express.Request, res: express.Response): Promise<void> => {
     try {
         if(!req.file){
-            res.status(400).json({
+            res.status(404).json({
                 message: "Please upload an image"
             })
         }
@@ -62,6 +62,29 @@ export const viewBlogs = async (req: express.Request, res: express.Response) => 
             message: "all blogs were successfully found",
             data: allBlogs
         })
+    } catch (error: any) {
+        return res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
+        })
+    }
+}
+
+export const viewBlogById = async (req: express.Request, res: express.Response) => {
+    try {
+        const blogId = req.params.id;
+        const existingBlog = await getBlogById(blogId);
+        if(!existingBlog){
+            return res.status(404).json({
+                message: "No blog found"
+            })
+        }
+        const viewBlog = await getBlogById(blogId)
+        return res.status(200).json({
+            message: "Blog found successfully",
+            data: viewBlog
+        })
+
     } catch (error: any) {
         return res.status(500).json({
             message: "Internal Server Error",

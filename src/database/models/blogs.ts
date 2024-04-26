@@ -25,7 +25,6 @@ const blogSchema = new mongoose.Schema({
     },
     // likes: [{
     //     type: String,
-    //     ref: 'User'
     // }],
 });
 const Blogs = mongoose.model('Blogs', blogSchema);

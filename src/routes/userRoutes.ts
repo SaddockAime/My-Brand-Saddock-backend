@@ -111,11 +111,21 @@ router.post("/login", login);
 
 /**
  * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: apiKey
+ *       name: authorization
+ *       in: header
+ */
+
+/**
+ * @swagger
  * /users/viewusers:
  *   get:
- *     summary: Get a list of all users
  *     security:
  *       - bearerAuth: []
+ *     summary: Get a list of all users
  *     responses:
  *       200:
  *         description: Success
@@ -126,17 +136,15 @@ router.post("/login", login);
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "All Users successfully found"
+ *                   example: "All users successfully found"
  *                 data:
  *                   type: object
- *                   properties:
- *                     allUsers:
- *                       type: object
  *       404:
- *         Allusers were not found
+ *         description: User not found
  *       500:
  *         description: Internal Server Error
  */
+
 router.get("/viewusers", authentication, viewUsers);
 
 /**

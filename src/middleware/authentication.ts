@@ -4,6 +4,7 @@ import express from 'express';
 const JWT_KEY = process.env.JWT_KEY || 'SECRET';
 
 export const authentication = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    //console.log(req.headers)
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
 
