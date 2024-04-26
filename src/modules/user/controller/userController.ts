@@ -11,7 +11,7 @@ export const login = async (req: express.Request, res: express.Response) => {
         if (!user) {
             return res.status(404).json({
                 status: 'fail',
-                message: 'no user'
+                message: 'You are not the Admin'
             });
         }
         const isPasswordMatch = await comparePassword(password, user.password);
