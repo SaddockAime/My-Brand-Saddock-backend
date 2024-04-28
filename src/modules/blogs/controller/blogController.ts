@@ -41,7 +41,7 @@ export const createBlogs = asyncHandler(async (req: express.Request, res: expres
         }
         //console.log(blogData)
         const blogs = await createBlog(blogData);
-        res.status(200).json({ blogDetail: blogs, message: 'Message sent' });
+        res.status(200).json({ blogDetail: blogs, message: 'Blog created successfully' });
     } catch (error) {
         res.status(500).json({
             message: "Internal server error"

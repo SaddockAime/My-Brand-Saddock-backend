@@ -23,9 +23,6 @@ const blogSchema = new mongoose.Schema({
         type: Date, 
         default: Date.now
     },
-    // likes: [{
-    //     type: String,
-    // }],
 });
 const Blogs = mongoose.model('Blogs', blogSchema);
 

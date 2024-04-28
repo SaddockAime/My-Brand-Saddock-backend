@@ -5,8 +5,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // Use the MongoDB URI from environment variables
-const MONGO_URL = 'mongodb+srv://aimegetz:4ANkqZh1vkvm1p9j@cluster0.7d6ceay.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
-
+//const MONGO_URL = 'mongodb+srv://aimegetz:4ANkqZh1vkvm1p9j@cluster0.7d6ceay.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const MONGO_URL: any = process.env.MONGO_URL
 // Connect to the database
 mongoose.connect(MONGO_URL,)
     .then(() => {
