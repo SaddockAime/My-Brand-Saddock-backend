@@ -1,5 +1,5 @@
 import express from "express";
-import { createSubscribers, getAllSubscribers, deleteSubscriberById, getSubscriberById} from "../repository/subscriberRepo"
+import { createSubscribers, getAllSubscribers, getSubscriberByEmail, deleteSubscriberById, getSubscriberById} from "../repository/subscriberRepo"
 import dotenv from "dotenv";
 import nodemailer from 'nodemailer';
 
@@ -12,8 +12,8 @@ const transporter = nodemailer.createTransport({
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
-        user: process.env.USER,
-        pass: process.env.APP_PASSWORD
+        user: 'aimegetz@gmail.com',
+        pass: 'xvxh xgey wksf cmkx'
     }
 });
 
@@ -39,6 +39,13 @@ const sendSubscriptionEmail = async (email: string) => {
 export const createSubscriber = async (req: express.Request, res: express.Response) => {
     try {
         const {email} = req.body;
+        const existingSubscriber = await getSubscriberByEmail(email);
+        if (existingSubscriber) {
+            return res.status(404).json({
+                status: 'fail',
+                message: 'Subscriber already exist'
+            });
+        }
         const newSubscriber = await createSubscribers({email});
         // Send subscription confirmation email
         await sendSubscriptionEmail(email);
