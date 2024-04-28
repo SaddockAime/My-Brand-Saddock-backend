@@ -1,5 +1,5 @@
 import express from 'express'
-import { createBlog, getAllBlogs, getBlogById, deleteBlogById } from '../repository/blogRepo'
+import { createBlog, getAllBlogs, getBlogById, deleteBlogById, updateBlogById } from '../repository/blogRepo'
 
 import { cloudinary } from "../../../utils/cloudinary";
 const asyncHandler = require('express-async-handler')
@@ -29,7 +29,7 @@ export const createBlogs = asyncHandler(async (req: express.Request, res: expres
             })
         }
         const result = await uploadImages(req.file);
-        console.log(result)
+        //console.log(result)
         const blogData = {
             title: req.body.title,
             description: req.body.description,
@@ -116,37 +116,43 @@ export const deleteBlog = async (req: express.Request, res: express.Response) =>
     }
 }
 
-// like a blog
-// export const likeBlog = async (req: express.Request, res: express.Response) => {
-//     try {
-//         const blogId = req.params.id;
-//         const userId = req.user;
-
-//         const blog = await getBlogById(blogId);
-//         if (!blog) {
-//             return res.status(404).json({ 
-//                 message: 'Blog not found' 
-//             });
-//         }
-
-//         if (blog.likes.includes(userId)) {
-//             return res.status(404).json({ 
-//                 message: 'User already liked the blog' 
-//             });
-//         }
-
-//         blog.likes.push(userId);
-//         await blog.save();
-
-//         return res.status(200).json({ 
-//             message: 'Blog liked successfully', 
-//             data: blog 
-//         });
-//     } catch (error: any) {
-//         return res.status(500).json({ 
-//             message: 'Internal Server Error', 
-//             error: error.message 
-//         });
-//     }
-// };
+//update blog by id
+export const updateBlog = asyncHandler(async (req: express.Request, res: express.Response): Promise<void> => {
+    try {
+        const blogId = req.params.id;
+        if(!req.file){
+            res.status(404).json({
+                message: "Please upload an image"
+            });
+            return;
+        }
+        const result = await uploadImages(req.file);
+        console.log(result);
+        const body = {
+            title: req.body.title,
+            description: req.body.description,
+            content: req.body.content,
+            image: {
+                public_id: result?.public_id,
+                url: result?.secure_url,
+            }
+        };
+        
+        const updatedBlog = await updateBlogById(blogId, body)
+        if(!updatedBlog){
+            res.status(404).json({
+                message: `Blog with ${blogId}} is not found.`,
+            });
+        }
+        res.status(200).json({
+            message: 'Blog Updated successfully',
+            data: updatedBlog,
+        });
+    } catch (error: any) {
+        res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
+        })
+    }
+});
 

@@ -17,4 +17,8 @@ const deleteBlogById = async (id: string) => {
     return await Blogs.deleteOne({_id: id});
 }
 
-export { createBlog, getAllBlogs, getBlogById, deleteBlogById }
+const updateBlogById = async (id:string, body: any) => {
+    return await Blogs.findByIdAndUpdate({_id: id}, body, { new: true} );
+}
+
+export { createBlog, getAllBlogs, getBlogById, deleteBlogById, updateBlogById }

@@ -24,9 +24,9 @@ const router = express.Router();
  *               password:
  *                 type: string
  *           example:
- *             username: "saddock"
- *             email: "saddock@gmail.com"
- *             password: "Saddock_123"
+ *             username: saddock
+ *             email: saddock@gmail.com
+ *             password: Saddock_123
  *     responses:
  *       200:
  *         description: Success
@@ -37,7 +37,7 @@ const router = express.Router();
  *               properties:
  *                 status:
  *                   type: string
- *                   example: "success"
+ *                   example: success
  *                 data:
  *                   type: object
  *                   properties:
@@ -151,9 +151,9 @@ router.get("/viewusers", authentication, viewUsers);
  * @swagger
  * /users/deleteUser/{id}:
  *   delete:
- *     summary: Delete a user by ID
  *     security:
  *       - bearerAuth: []
+ *     summary: Delete a user by ID
  *     parameters:
  *       - in: path
  *         name: id
