@@ -1,4 +1,5 @@
 import express from 'express'
+import { authentication } from '../middleware/authentication';
 import { createBlogs, viewBlogs, viewBlogById, deleteBlog, updateBlog } from '../modules/blogs/controller/blogController'
 import upload from '../utils/multer'
 
@@ -6,8 +7,20 @@ const router = express.Router();
 
 /**
  * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: apiKey
+ *       name: authorization
+ *       in: header
+ */
+
+/**
+ * @swagger
  * /blogs/createBlogs:
  *   post:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Create a new blog
  *     requestBody:
  *       required: true
@@ -56,7 +69,7 @@ const router = express.Router();
  *       500:
  *         description: Internal Server Error
  */
-router.post("/createBlogs", upload.single('image'), createBlogs);
+router.post("/createBlogs", authentication, upload.single('image'), createBlogs);
 
 /**
  * @swagger
@@ -155,6 +168,8 @@ router.get("/viewBlogById/:id", viewBlogById);
  * @swagger
  * /blogs/deleteBlog/{id}:
  *   delete:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Delete a blog by ID
  *     parameters:
  *       - in: path
@@ -198,12 +213,14 @@ router.get("/viewBlogById/:id", viewBlogById);
  *       500:
  *         description: Internal Server Error
  */
-router.delete("/deleteBlog/:id", deleteBlog);
+router.delete("/deleteBlog/:id", authentication, deleteBlog);
 
 /**
  * @swagger
  * /blogs/updateBlog/{id}:
  *   put:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Update a blog by ID
  *     parameters:
  *       - in: path
@@ -244,7 +261,7 @@ router.delete("/deleteBlog/:id", deleteBlog);
  *       500:
  *         description: Internal Server Error
  */
-router.put("/updateBlog/:id", upload.single('image'), updateBlog);
+router.put("/updateBlog/:id", authentication, upload.single('image'), updateBlog);
 
 export default router;
 

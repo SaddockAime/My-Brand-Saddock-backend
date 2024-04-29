@@ -1,4 +1,5 @@
 import express from "express";
+import { authentication } from '../middleware/authentication';
 import { createSubscriber, viewSubscribers, deleteSubscriber } from "../modules/subscriber/controller/subscriberController";
 
 const router = express.Router();
@@ -48,8 +49,20 @@ router.post("/createSubscriber", createSubscriber);
 
 /**
  * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: apiKey
+ *       name: authorization
+ *       in: header
+ */
+
+/**
+ * @swagger
  * /subscribers/viewSubscribers:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Get a list of all subscribers
  *     responses:
  *       200:
@@ -74,12 +87,14 @@ router.post("/createSubscriber", createSubscriber);
  *       500:
  *         description: Internal Server Error
  */
-router.get("/viewSubscribers", viewSubscribers);
+router.get("/viewSubscribers", authentication, viewSubscribers);
 
 /**
  * @swagger
  * /subscribers/deleteSubscriber/{id}:
  *   delete:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Delete a subscriber by ID
  *     parameters:
  *       - in: path
@@ -106,7 +121,7 @@ router.get("/viewSubscribers", viewSubscribers);
  *       500:
  *         description: Internal Server Error
  */
-router.delete("/deleteSubscriber/:id", deleteSubscriber);
+router.delete("/deleteSubscriber/:id", authentication, deleteSubscriber);
 
 export default router;
 

@@ -1,5 +1,5 @@
 import express from 'express';
-
+import { authentication } from '../middleware/authentication';
 import { createMessage, viewMessages, deleteMessage } from '../modules/message/controller/messageController';
 
 const router = express.Router();
@@ -60,8 +60,20 @@ router.post("/createMessage", createMessage);
 
 /**
  * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: apiKey
+ *       name: authorization
+ *       in: header
+ */
+
+/**
+ * @swagger
  * /messages/viewMessages:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Get a list of all messages
  *     responses:
  *       200:
@@ -93,12 +105,14 @@ router.post("/createMessage", createMessage);
  *       500:
  *         description: Internal Server Error
  */
-router.get("/viewMessages", viewMessages);
+router.get("/viewMessages", authentication, viewMessages);
 
 /**
  * @swagger
  * /messages/deleteMessage/{id}:
  *   delete:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Delete a message by ID
  *     parameters:
  *       - in: path
@@ -137,7 +151,7 @@ router.get("/viewMessages", viewMessages);
  *       500:
  *         description: Internal Server Error
  */
-router.delete("/deleteMessage/:id", deleteMessage);
+router.delete("/deleteMessage/:id", authentication, deleteMessage);
 
 
 export default router;
