@@ -6,8 +6,26 @@ chai.use(chaiHttp);
 const router = () => chai.request(app);
 
 let messageId: any = '';
+let token: any = '';
 
 describe("MyBrand backend message test cases", () => {
+
+  // Test for login
+  it("Should be able to log in an existing user", (done) => {
+    router()
+      .post("/api/users/login")
+      .send({
+        email: "saddock@gmail.com",
+        password: "Saddock_2000"
+      })
+      .end((error, response: any) => {
+        expect(response).to.have.status(200);
+        expect(response.body).to.be.an("object");
+        expect(response.body).to.have.property("data");
+        token = response._body.data.token;
+        done(error);
+      });
+  });
 
   // Test for creating message
   it("Should be able to create message", (done) => {
@@ -31,6 +49,7 @@ describe("MyBrand backend message test cases", () => {
   it("Should be able to get all messages", (done) => {
     router()
       .get("/api/messages/viewMessages")
+      .set("Authorization", `Bearer ${token}`)
       .end((error, response) => {
         expect(response).to.have.status(200);
         expect(response.body).to.be.a("object");
@@ -44,6 +63,7 @@ describe("MyBrand backend message test cases", () => {
   it("Should be able to delete a message by ID", (done) => {
     router()
       .delete(`/api/messages/deleteMessage/${messageId}`)
+      .set("Authorization", `Bearer ${token}`)
       .end((error, response) => {
         expect(response).to.have.status(200);
         expect(response.body).to.be.an("object");
@@ -55,6 +75,7 @@ describe("MyBrand backend message test cases", () => {
   it("Should be able to give an error", (done) => {
     router()
       .delete(`/api/messages/deleteMessage/${messageId}`)
+      .set("Authorization", `Bearer ${token}`)
       .end((error, response) => {
         expect(response).to.have.status(404);
         expect(response.body).to.be.an("object");

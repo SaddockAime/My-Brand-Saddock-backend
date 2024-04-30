@@ -140,8 +140,5 @@ describe("MyBrand backend user test cases", () => {
         expect(response.body).to.be.an("object");
         done(error);
       });
-  });
-
-
-  
+  }); 
 });
