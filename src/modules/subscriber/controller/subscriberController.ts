@@ -27,9 +27,9 @@ const sendSubscriptionEmail = async (email: string) => {
         };
 
         await transporter.sendMail(mailOptions);
-        console.log('Subscription email sent successfully');
+        //console.log('Subscription email sent successfully');
     } catch (error) {
-        console.error('Error sending subscription email:', error);
+        //console.error('Error sending subscription email:', error);
     }
 };
 

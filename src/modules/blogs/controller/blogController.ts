@@ -127,7 +127,7 @@ export const updateBlog = asyncHandler(async (req: express.Request, res: express
             return;
         }
         const result = await uploadImages(req.file);
-        console.log(result);
+        //console.log(result);
         const body = {
             title: req.body.title,
             description: req.body.description,

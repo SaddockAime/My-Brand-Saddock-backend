@@ -44,6 +44,18 @@ describe("MyBrand backend subscriber test cases", () => {
       });
   });
 
+  it("Should be able give an error", (done) => {
+    router()
+      .post("/api/subscribers/createSubscriber")
+      .send({
+        email: "aimegetz@gmail.com",
+      })
+      .end((error, response: any) => {
+        expect(response).to.have.status(404);
+        done(error);
+      });
+  });
+
   // Test for viewing subscribers
   it("Should be able to get all subscribers", (done) => {
     router()
