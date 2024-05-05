@@ -6,9 +6,28 @@ const router = express.Router();
 
 /**
  * @swagger
+ * tags:
+ *   name: Subscribers
+ *   description: Subscribers routes
+ */
+
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: apiKey
+ *       name: authorization
+ *       in: header
+ */
+
+/**
+ * @swagger
  * /subscribers/createSubscriber:
  *   post:
  *     summary: create a new subscriber
+ *     tags:
+ *       - Subscribers
  *     requestBody:
  *       description: subscriber data
  *       required: true
@@ -49,21 +68,13 @@ router.post("/createSubscriber", createSubscriber);
 
 /**
  * @swagger
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: apiKey
- *       name: authorization
- *       in: header
- */
-
-/**
- * @swagger
  * /subscribers/viewSubscribers:
  *   get:
  *     security:
  *       - bearerAuth: []
  *     summary: Get a list of all subscribers
+ *     tags:
+ *       - Subscribers
  *     responses:
  *       200:
  *         description: Success
@@ -96,13 +107,15 @@ router.get("/viewSubscribers", authentication, viewSubscribers);
  *     security:
  *       - bearerAuth: []
  *     summary: Delete a subscriber by ID
+ *     tags:
+ *       - Subscribers
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
- *         description: message ID
+ *         description: subscriber ID
  *     responses:
  *       200:
  *         description: Success

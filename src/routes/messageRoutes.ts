@@ -4,12 +4,30 @@ import { createMessage, viewMessages, deleteMessage } from '../modules/message/c
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * tags:
+ *   name: Message
+ *   description: Message routes
+ */
+
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: apiKey
+ *       name: authorization
+ *       in: header
+ */
 
 /**
  * @swagger
  * /messages/createMessage:
  *   post:
  *     summary: Create a new message
+ *     tags:
+ *       - Message
  *     requestBody:
  *       description: message data
  *       required: true
@@ -60,21 +78,13 @@ router.post("/createMessage", createMessage);
 
 /**
  * @swagger
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: apiKey
- *       name: authorization
- *       in: header
- */
-
-/**
- * @swagger
  * /messages/viewMessages:
  *   get:
  *     security:
  *       - bearerAuth: []
  *     summary: Get a list of all messages
+ *     tags:
+ *       - Message
  *     responses:
  *       200:
  *         description: Success
@@ -114,6 +124,8 @@ router.get("/viewMessages", authentication, viewMessages);
  *     security:
  *       - bearerAuth: []
  *     summary: Delete a message by ID
+ *     tags:
+ *       - Message
  *     parameters:
  *       - in: path
  *         name: id

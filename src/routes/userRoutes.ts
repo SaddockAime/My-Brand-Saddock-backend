@@ -6,9 +6,28 @@ const router = express.Router();
 
 /**
  * @swagger
+ * tags:
+ *   name: Users
+ *   description: Users routes
+ */
+
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: apiKey
+ *       name: authorization
+ *       in: header
+ */
+
+/**
+ * @swagger
  * /users/signup:
  *   post:
  *     summary: Signup a new user
+ *     tags:
+ *       - Users
  *     requestBody:
  *       description: User data
  *       required: true
@@ -62,6 +81,8 @@ router.post("/signup", signup);
  * /users/login:
  *   post:
  *     summary: Login a user
+ *     tags:
+ *       - Users
  *     requestBody:
  *       description: User credentials
  *       required: true
@@ -111,21 +132,13 @@ router.post("/login", login);
 
 /**
  * @swagger
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: apiKey
- *       name: authorization
- *       in: header
- */
-
-/**
- * @swagger
  * /users/viewusers:
  *   get:
  *     security:
  *       - bearerAuth: []
  *     summary: Get a list of all users
+ *     tags:
+ *       - Users
  *     responses:
  *       200:
  *         description: Success
@@ -154,6 +167,8 @@ router.get("/viewusers", authentication, viewUsers);
  *     security:
  *       - bearerAuth: []
  *     summary: Delete a user by ID
+ *     tags:
+ *       - Users
  *     parameters:
  *       - in: path
  *         name: id

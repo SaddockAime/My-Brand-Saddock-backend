@@ -7,6 +7,13 @@ const router = express.Router();
 
 /**
  * @swagger
+ * tags:
+ *   name: Blogs
+ *   description: Blogs routes
+ */
+
+/**
+ * @swagger
  * components:
  *   securitySchemes:
  *     bearerAuth:
@@ -22,6 +29,8 @@ const router = express.Router();
  *     security:
  *       - bearerAuth: []
  *     summary: Create a new blog
+ *     tags:
+ *       - Blogs
  *     requestBody:
  *       required: true
  *       content:
@@ -76,6 +85,8 @@ router.post("/createBlogs", authentication, upload.single('image'), createBlogs)
  * /blogs/viewBlogs:
  *   get:
  *     summary: Get a list of all blogs
+ *     tags:
+ *       - Blogs
  *     responses:
  *       200:
  *         description: Success
@@ -120,6 +131,8 @@ router.get("/viewBlogs", viewBlogs);
  * /blogs/viewBlogById/{id}:
  *   get:
  *     summary: Get a blog by ID
+ *     tags:
+ *       - Blogs
  *     parameters:
  *       - in: path
  *         name: id
@@ -171,6 +184,8 @@ router.get("/viewBlogById/:id", viewBlogById);
  *     security:
  *       - bearerAuth: []
  *     summary: Delete a blog by ID
+ *     tags:
+ *       - Blogs
  *     parameters:
  *       - in: path
  *         name: id
@@ -222,6 +237,8 @@ router.delete("/deleteBlog/:id", authentication, deleteBlog);
  *     security:
  *       - bearerAuth: []
  *     summary: Update a blog by ID
+ *     tags:
+ *       - Blogs
  *     parameters:
  *       - in: path
  *         name: id
