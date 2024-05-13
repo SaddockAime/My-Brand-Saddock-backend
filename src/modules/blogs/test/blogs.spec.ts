@@ -17,21 +17,21 @@ let token: any = '';
 describe("MyBrand backend blogs test cases", () => {
 
       // Test for login 
-  it("Should be able to log in an existing user", (done) => {
-    router()
-      .post("/api/users/login")
-      .send({
-        email: "saddock@gmail.com",
-        password: "Saddock_2000"
-      })
-      .end((error, response: any) => {
-        expect(response).to.have.status(200);
-        expect(response.body).to.be.an("object");
-        expect(response.body).to.have.property("data");
-        token = response._body.data.token;
-        done(error);
+      it("Should be able to log in an existing user", (done) => {
+        router()
+          .post("/api/users/login")
+          .send({
+            email: "saddock@gmail.com",
+            password: "Saddock_2000"
+          })
+          .end((error, response: any) => {
+            expect(response).to.have.status(200);
+            expect(response.body).to.be.an("object");
+            expect(response.body).to.have.property("data");
+            token = response._body.data.token;
+            done(error);
+          });
       });
-  });
 
   // Test for creating Blog
   it("Should be able to create blog", (done) => {
