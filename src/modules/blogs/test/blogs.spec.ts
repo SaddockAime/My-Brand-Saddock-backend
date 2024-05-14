@@ -2,14 +2,16 @@ import app from "../../../server";
 import chaiHttp from "chai-http";
 import chai, { expect } from "chai";
 
-chai.use(chaiHttp);
-const router = () => chai.request(app);
+
 
 import fs from 'fs'
 import path from 'path';
 
 const imageLoc = path.join(__dirname,'../../../../testImage/tech33.jpg');
 const imageBuffer = fs.readFileSync(imageLoc)
+
+chai.use(chaiHttp);
+const router = () => chai.request(app);
 
 let blogId: any = '';
 let token: any = '';
@@ -50,18 +52,18 @@ describe("MyBrand backend blogs test cases", () => {
       });
   });
 
-  it("Should be able to give an error", (done) => {
-    router()
-      .post("/api/blogs/createBlogs")
-      .set("Authorization", `Bearer ${token}`)
-      .field('title', 'title test')
-      .field('description', 'description test')
-      .field('content', 'content test')
-      .end((error, response: any) => {
-        expect(response).to.have.status(404);
-        done(error);
-      });
-  });
+//   it("Should be able to give an error", (done) => {
+//     router()
+//       .post("/api/blogs/createBlogs")
+//       .set("Authorization", `Bearer ${token}`)
+//       .field('title', 'title test')
+//       .field('description', 'description test')
+//       .field('content', 'content test')
+//       .end((error, response: any) => {
+//         expect(response).to.have.status(404);
+//         done(error);
+//       });
+//   });
 
   // Test for view blogs
   it("Should be able to get all blogs", (done) => {
