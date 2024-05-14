@@ -4,8 +4,9 @@
 name: CI
 
 on:
-  pull_request: {}
-
+  pull_request:
+  push:
+    branches: -main
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,10 +30,10 @@ jobs:
       - name: Upload coverage to Coveralls
         uses: coverallsapp/github-action@v2
         env:
-          PORT: ${{ secrets.PORT }}
-          MONGO_URL: ${{ secrets.MONGO_URL }}
-          CLOUD_NAME: ${{ secrets.CLOUD_NAME }}
-          API_KEY: ${{ secrets.API_KEY }}
-          API_SECRET: ${{ secrets.API_SECRET }}
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          PORT: ${{secrets.PORT}}
+          MONGO_URL: ${{secrets.MONGO_URL}}
+          CLOUD_NAME: ${{secrets.CLOUD_NAME}}
+          API_KEY: ${{secrets.API_KEY}}
+          API_SECRET: ${{secrets.API_SECRET}}
+          COVERALLS_REPO_TOKEN: ${{secrets.COVERALLS_REPO_TOKEN}}
+          CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
