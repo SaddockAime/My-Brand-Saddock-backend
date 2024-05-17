@@ -4,10 +4,10 @@
   "description": "",
   "main": "src/server.ts",
   "scripts": {
-    "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test | coveralls",
+    "start": "nodemon",
     "test": "mocha --require ts-node/register 'src/modules/**/*.spec.ts' --timeout 300000 --exit",
     "coverage": "nyc mocha --require ts-node/register 'src/modules/**/*.spec.ts' --timeout 300000 --exit",
-    "start": "nodemon"
+    "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test | coveralls"
   },
   "nyc": {
     "extends": "@istanbuljs/nyc-config-typescript",
@@ -67,7 +67,9 @@
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "coverage": "^0.4.1",
     "coveralls": "^3.1.1",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-async-handler": "^1.2.0",
