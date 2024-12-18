@@ -51,7 +51,6 @@ describe("MyBrand backend blogs test cases", () => {
         done(error);
       });
   });
-
 //   it("Should be able to give an error", (done) => {
 //     router()
 //       .post("/api/blogs/createBlogs")
