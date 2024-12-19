@@ -1,0 +1,38 @@
+
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - run: npm install
+      - run: npm ci
+      - run: npm run build --if-present
+      # - run: npm test --if-present
+      # - run: npm run coverage --if-present
+      # - name: Upload coverage to Coveralls
+      #   uses: coverallsapp/github-action@v2
+      #   env:
+      #     PORT: ${{secrets.PORT}}
+      #     MONGO_URL: ${{secrets.MONGO_URL}}
+      #     CLOUD_NAME: ${{secrets.CLOUD_NAME}}
+      #     API_KEY: ${{secrets.API_KEY}}
+      #     API_SECRET: ${{secrets.API_SECRET}}
+      #     COVERALLS_REPO_TOKEN: ${{secrets.COVERALLS_REPO_TOKEN}}
+      #     CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}

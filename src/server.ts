@@ -3,7 +3,7 @@ import allRoutes from "./routes/allRoutes"
 import cors from 'cors';
 import dotenv from 'dotenv';
 import swaggerSetup from '../swaggerConfig';
-import './database/config/database'
+import { connectMONGO } from './database/config/database';
 
 const app = express();
 app.use(express.json());
@@ -20,10 +20,20 @@ app.use("/api", allRoutes);
 
 swaggerSetup(app);
 
-const PORT = 7070;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+const PORT = process.env.PORT;
+
+const startServer = async () => {
+  try {
+    await connectMONGO();
+    app.listen(PORT, () => {
+      console.log(`Server is running on Port:${PORT}`);
+    });
+  } catch (error) {
+    console.error('Failed to start server:', error);
+  }
+};
+
+startServer();
 
 export default app;
 

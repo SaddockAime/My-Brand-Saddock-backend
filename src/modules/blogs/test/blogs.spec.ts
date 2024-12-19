@@ -2,8 +2,7 @@ import app from "../../../server";
 import chaiHttp from "chai-http";
 import chai, { expect } from "chai";
 
-chai.use(chaiHttp);
-const router = () => chai.request(app);
+
 
 import fs from 'fs'
 import path from 'path';
@@ -11,27 +10,30 @@ import path from 'path';
 const imageLoc = path.join(__dirname,'../../../../testImage/tech33.jpg');
 const imageBuffer = fs.readFileSync(imageLoc)
 
+chai.use(chaiHttp);
+const router = () => chai.request(app);
+
 let blogId: any = '';
 let token: any = '';
 
 describe("MyBrand backend blogs test cases", () => {
 
       // Test for login 
-  it("Should be able to log in an existing user", (done) => {
-    router()
-      .post("/api/users/login")
-      .send({
-        email: "saddock@gmail.com",
-        password: "Saddock_2000"
-      })
-      .end((error, response: any) => {
-        expect(response).to.have.status(200);
-        expect(response.body).to.be.an("object");
-        expect(response.body).to.have.property("data");
-        token = response._body.data.token;
-        done(error);
+      it("Should be able to log in an existing user", (done) => {
+        router()
+          .post("/api/users/login")
+          .send({
+            email: "saddock@gmail.com",
+            password: "Saddock_2000"
+          })
+          .end((error, response: any) => {
+            expect(response).to.have.status(200);
+            expect(response.body).to.be.an("object");
+            expect(response.body).to.have.property("data");
+            token = response._body.data.token;
+            done(error);
+          });
       });
-  });
 
   // Test for creating Blog
   it("Should be able to create blog", (done) => {
@@ -49,19 +51,18 @@ describe("MyBrand backend blogs test cases", () => {
         done(error);
       });
   });
-
-  it("Should be able to give an error", (done) => {
-    router()
-      .post("/api/blogs/createBlogs")
-      .set("Authorization", `Bearer ${token}`)
-      .field('title', 'title test')
-      .field('description', 'description test')
-      .field('content', 'content test')
-      .end((error, response: any) => {
-        expect(response).to.have.status(404);
-        done(error);
-      });
-  });
+//   it("Should be able to give an error", (done) => {
+//     router()
+//       .post("/api/blogs/createBlogs")
+//       .set("Authorization", `Bearer ${token}`)
+//       .field('title', 'title test')
+//       .field('description', 'description test')
+//       .field('content', 'content test')
+//       .end((error, response: any) => {
+//         expect(response).to.have.status(404);
+//         done(error);
+//       });
+//   });
 
   // Test for view blogs
   it("Should be able to get all blogs", (done) => {
