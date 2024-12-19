@@ -3,8 +3,10 @@
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 [![Maintainability](https://api.codeclimate.com/v1/badges/27632a66198c4b9afbc4/maintainability)](https://codeclimate.com/github/SaddockAime/My-Brand-Saddock-backend/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/27632a66198c4b9afbc4/test_coverage)](https://codeclimate.com/github/SaddockAime/My-Brand-Saddock-backend/test_coverage)
+<!--
 [![Coverage Status](https://coveralls.io/repos/github/SaddockAime/My-Brand-Saddock-backend/badge.svg?branch=main)](https://coveralls.io/github/SaddockAime/My-Brand-Saddock-backend?branch=main)
 [![CircleCI](https://dl.circleci.com/status-badge/img/circleci/YP657XkYXwnQfGBvMSFtNN/Ew4rKc7T4aHxi1UN1mnNSL/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/circleci/YP657XkYXwnQfGBvMSFtNN/Ew4rKc7T4aHxi1UN1mnNSL/tree/main)
+-->
 
 ## Features
 
